@@ -1,6 +1,16 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+steps:
+  - restore_cache:
+      keys:
+        - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        - yarn-packages-v1-{{ .Branch }}-
+        - yarn-packages-v1-
+  - save_cache:
+      paths:
+        - ~/.cache/yarn
+      key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
 workflows:
   node-tests:
     jobs:
