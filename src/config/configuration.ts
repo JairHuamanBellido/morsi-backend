@@ -1,5 +1,5 @@
-export default () => ({
-    database: {
-      host: process.env.DATABASE_URL,
-    }
+export default ():any => ({
+  database: {
+    host: process.env.DATABASE_URL,
+  },
 });
