@@ -1,17 +1,20 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-steps:
-  - restore_cache:
-      keys:
-        - yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        - yarn-packages-v1-{{ .Branch }}-
-        - yarn-packages-v1-
-  - save_cache:
-      paths:
-        - ~/.cache/yarn
-      key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+jobs:
+  run_tests:
+    docker:
+      - image: circleci/node:12
+    steps:
+     - checkout
+     - run:
+        name: Install npm dependencies
+        comand:
+          yarn install
+     - run:
+        name: Testing
+        comand: 
+          npm run test
 workflows:
-  node-tests:
+  build_test:
     jobs:
-      - node/test
+      - run_tests
+     
