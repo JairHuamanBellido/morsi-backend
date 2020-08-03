@@ -1,4 +1,4 @@
-import { Controller, Post, Res, Body } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { ManagerService } from '../services/manager.service';
 import { CreateManager } from '../dto/createManager.dto';
 import { Manager } from '../models/manager.schema';

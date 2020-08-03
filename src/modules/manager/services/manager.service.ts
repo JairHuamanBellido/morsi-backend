@@ -7,12 +7,11 @@ import { CreateManager } from '../dto/createManager.dto';
 @Injectable()
 export class ManagerService {
     constructor(
-        @InjectModel(Manager.name) private managerModel: Model<Manager>,
+        @InjectModel(Manager.name)
+        private readonly managerModel: Model<Manager>,
     ) {}
 
     async create(_manager: CreateManager): Promise<Manager> {
-        return await this.managerModel.create(
-            CreateManager.transformDTO(_manager),
-        );
+        return await this.managerModel.create(_manager);
     }
 }
