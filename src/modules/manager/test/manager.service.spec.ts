@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ManagerService } from '../services/manager.service';
 import mockManager from '../__mock__/manager.mock';
-import mongoProvider from '../__mock__/db.mock';
+import mongoProvider from '../../../database/db.mock';
 
 describe('ManagerService', () => {
     let service: ManagerService;

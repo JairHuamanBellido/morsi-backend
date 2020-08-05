@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ManagerSchema, Manager } from '../models/manager.schema';
+import { ManagerSchema, Manager } from '../modules/manager/models/manager.schema';
 
 const mongod = new MongoMemoryServer();
 export default {
