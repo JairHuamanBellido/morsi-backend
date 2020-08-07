@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { ManagerService } from '../../../modules/manager/services/manager.service';
 import mongoProvider from '../../../database/db.mock';
 import { CreateManager } from '../../../modules/manager/dto/createManager.dto';
+import { JwtModule } from '@nestjs/jwt';
 describe('AuthService', () => {
     let authService: AuthService;
     let managerService: ManagerService;
@@ -14,7 +15,13 @@ describe('AuthService', () => {
     };
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [mongoProvider.initialize, mongoProvider.managerSchema],
+            imports: [
+                mongoProvider.initialize,
+                mongoProvider.managerSchema,
+                JwtModule.register({
+                    secret: 'localkey',
+                }),
+            ],
             providers: [AuthService, ManagerService],
         }).compile();
 
@@ -33,6 +40,6 @@ describe('AuthService', () => {
             password: mockManager.password,
         });
 
-        expect((await auth).name).toEqual(mockManager.name);
+        expect(await auth).toHaveProperty('access_token');
     });
 });

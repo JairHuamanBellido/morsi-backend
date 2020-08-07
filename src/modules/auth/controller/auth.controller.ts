@@ -8,6 +8,6 @@ export class AuthController {
 
     @Post('/')
     async authenticate(@Body() managerAuth: ManagerAuthenticate): Promise<any> {
-        return await this.authService.authenticate(managerAuth);
+        return this.authService.authenticate(managerAuth);
     }
 }
