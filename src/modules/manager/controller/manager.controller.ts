@@ -3,7 +3,7 @@ import { ManagerService } from '../services/manager.service';
 import { CreateManager } from '../dto/createManager.dto';
 import { Manager } from '../models/manager.schema';
 
-@Controller('manager')
+@Controller('managers')
 export class ManagerController {
     constructor(private readonly managerService: ManagerService) {}
 
