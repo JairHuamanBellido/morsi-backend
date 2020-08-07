@@ -6,6 +6,7 @@ import configuration from './config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ManagerModule } from './modules/manager/manager.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RestaurantsModule } from './modules/restaurants/restaurants.module';
 
 @Module({
     imports: [
@@ -14,11 +15,10 @@ import { AuthModule } from './modules/auth/auth.module';
             isGlobal: true,
             load: [configuration],
         }),
-        MongooseModule.forRoot(
-            `${process.env.DATABASE_URL}/${process.env.DATABASE_COLLECTION}?${process.env.DATABASE_RULES}`,
-        ),
+        MongooseModule.forRoot(`${process.env.DATABASE_URL}/${process.env.DATABASE_COLLECTION}?${process.env.DATABASE_RULES}`),
         ManagerModule,
         AuthModule,
+        RestaurantsModule,
     ],
     controllers: [AppController],
     providers: [AppService],

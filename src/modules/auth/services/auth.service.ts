@@ -25,4 +25,8 @@ export class AuthService {
             return new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    decodeToken(token: string): any {
+        return this.jwtService.decode(token);
+    }
 }

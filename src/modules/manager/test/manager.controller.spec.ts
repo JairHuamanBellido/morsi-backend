@@ -1,14 +1,14 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { ManagerController } from '../controller/manager.controller';
 import { ManagerService } from '../services/manager.service';
 import mongoProvider from '../../../database/db.mock';
-import managerMock from '../__mock__/manager.mock';
+import { manager } from '../../../__mock__/manager.mock';
 import { Manager } from '../models/manager.schema';
 describe('Manager Controller', () => {
     let controller: ManagerController;
     let service: ManagerService;
     beforeEach(async () => {
-        const moduleRef = await Test.createTestingModule({
+        const moduleRef: TestingModule = await Test.createTestingModule({
             controllers: [ManagerController],
             providers: [ManagerService],
             imports: [mongoProvider.initialize, mongoProvider.managerSchema],
@@ -23,9 +23,9 @@ describe('Manager Controller', () => {
     });
 
     it('POST /manager create', async () => {
-        const manager: Manager | any = managerMock;
-        jest.spyOn(service, 'create').mockImplementation(() => manager);
+        const _manager: Manager | any = manager;
+        jest.spyOn(service, 'create').mockImplementation(() => _manager);
 
-        expect((await manager).name).toEqual(managerMock.name);
+        expect((await _manager).name).toEqual(manager.name);
     });
 });

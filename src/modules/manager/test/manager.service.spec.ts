@@ -1,11 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ManagerService } from '../services/manager.service';
-import mockManager from '../__mock__/manager.mock';
 import mongoProvider from '../../../database/db.mock';
+import { ManagerService } from '../services/manager.service';
 
 describe('ManagerService', () => {
     let service: ManagerService;
-
+    const manager = {
+        email: 'jair@gmail.com',
+        lastName: 'Huaman',
+        name: 'Jair',
+        password: '123456',
+    };
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [ManagerService],
@@ -20,7 +24,7 @@ describe('ManagerService', () => {
     });
 
     it('should create manager', async () => {
-        const manager = service.create(mockManager);
-        expect((await manager).name).toEqual(mockManager.name);
+        const _manager = service.create(manager);
+        expect((await _manager).name).toEqual(manager.name);
     });
 });
