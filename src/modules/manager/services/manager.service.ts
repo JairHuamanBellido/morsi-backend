@@ -14,8 +14,8 @@ export class ManagerService {
 
     async create(_manager: CreateManager): Promise<Manager | any> {
         try {
-            if (await this.managerException.isExist(_manager.dni)) {
-                return new HttpException('El dni ha sido registrado', HttpStatus.CONFLICT)
+            if (await this.managerException.isExist(_manager.dni,_manager.email)) {
+                return new HttpException('El dni o email ha sido registrado', HttpStatus.CONFLICT)
             }
             const manager = this.managerModel.create(_manager);
             await (await manager).save()

@@ -10,7 +10,7 @@ import { AuthService } from '../../../modules/auth/services/auth.service';
 import { AuthModule } from '../../../modules/auth/auth.module';
 
 
-describe('EmployeesService', () => {
+describe('EmployeesExceptionService', () => {
     let managerService: ManagerService;
     let restaurantService: RestaurantsService;
     let authService: AuthService;

@@ -12,8 +12,8 @@ export class ManagerExceptionService{
     ) { }
 
 
-    async isExist(dni: string): Promise<any> {
-        const manager = await this.managerModel.findOne({ dni: dni })
+    async isExist(dni: string, email: string): Promise<any> {
+        const manager = await this.managerModel.findOne({ $or:[{email: email}, {dni: dni}] })
 
         return await manager ? true : false
     }
