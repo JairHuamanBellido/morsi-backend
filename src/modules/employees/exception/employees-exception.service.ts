@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Employee } from '../models/employee.schema';
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { AuthService } from '../../../modules/auth/services/auth.service';
-import { Manager } from '../../../modules/manager/models/manager.schema';
+import { Restaurant } from '../../../modules/restaurants/model/restaurant.schema';
 
 
 @Injectable()
@@ -12,8 +12,8 @@ export class EmployeeExceptionService {
         @InjectModel(Employee.name)
         private readonly employeeModel: Model<Employee>,
         private readonly authService: AuthService,
-        @InjectModel(Manager.name)
-        private readonly managerModel: Model<Manager>
+        @InjectModel(Restaurant.name)
+        private readonly restaurantModel: Model<Restaurant>
 
     ) { }
 
@@ -22,12 +22,13 @@ export class EmployeeExceptionService {
         return (await employee) ? true : false;
     }
 
-
-    async isValidTokenOfManager(token: string, idRestaurant: string): Promise<any> {
+    async isRestaurantOfManager(token: string, idRestaurant: string | Schema.Types.ObjectId): Promise<any> {
         const id = (this.authService.decodeToken(token)).id;
-        const manager = await this.managerModel.findOne({ _id: id })
-
-        return await manager.restaurants.find(e => e._id == idRestaurant) ? true : false
+        // console.log(await this.restaurantModel.find())
+        const restaurant = await this.restaurantModel.findOne({ _id: idRestaurant, manager: id })
+        // console.log(await restaurant)
+        return await restaurant ? true : false
 
     }
+
 }

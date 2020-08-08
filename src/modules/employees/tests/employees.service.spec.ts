@@ -8,7 +8,6 @@ import { ManagerModule } from '../../../modules/manager/manager.module';
 import { RestaurantsModule } from '../../../modules/restaurants/restaurants.module';
 import { AuthService } from '../../../modules/auth/services/auth.service';
 import { AuthModule } from '../../../modules/auth/auth.module';
-import { CreateEmployee } from '../dto/createEmployee.dto';
 
 describe('EmployeesService', () => {
     let employeeService: EmployeesService;
@@ -31,7 +30,7 @@ describe('EmployeesService', () => {
         country: 'Perú',
         telephoneContact: '933059431',
     };
-    const mockEmployee: CreateEmployee = {
+    const mockEmployee = {
         idRestaurant: '',
         address: 'address',
         age: 12,
@@ -70,4 +69,10 @@ describe('EmployeesService', () => {
 
         expect(await _employee.name).toEqual(mockEmployee.name);
     });
+
+    it('should toggle active employee account', async () => {
+        const update: any = { active: false }
+        const _employee = await employeeService.update(token, update, mockEmployee.dni);
+        expect(_employee.message).toBeTruthy()
+    })
 });

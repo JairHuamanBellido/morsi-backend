@@ -1,6 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Restaurant } from '../../../modules/restaurants/model/restaurant.schema';
 
 @Schema()
 export class Manager extends Document {
@@ -15,9 +14,6 @@ export class Manager extends Document {
 
     @Prop({ required: true, type: String })
     password: string;
-
-    @Prop({ required: false, type: Restaurant, default: [] })
-    restaurants?: Array<Restaurant>;
 
     @Prop({ required: true, type: String })
     dni: string

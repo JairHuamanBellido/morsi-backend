@@ -17,7 +17,7 @@ export class RestaurantsService {
         private readonly restaurantModel: Model<Restaurant>,
         private restaurantException: RestaurantExceptionService,
         private authService: AuthService,
-    ) {}
+    ) { }
 
     async create(token: string, newRestaurant: CreateRestaurant): Promise<any> {
         const id = this.authService.decodeToken(token).id;
@@ -27,9 +27,7 @@ export class RestaurantsService {
             }
 
             const manager = await this.managerModel.findOne({ _id: id });
-            const restaurant = await this.restaurantModel.create(newRestaurant);
-
-            manager.restaurants.push(restaurant);
+            const restaurant = await this.restaurantModel.create({ ...newRestaurant, manager });
 
             await restaurant.save();
             await manager.updateOne(manager);

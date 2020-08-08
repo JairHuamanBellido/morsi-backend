@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Schema as schema } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema()
@@ -32,6 +32,12 @@ export class Employee extends Document {
 
     @Prop({ required: true, type: String })
     email: string;
+
+    @Prop({ required: false, type: Boolean, default: true })
+    active?: boolean;
+
+    @Prop({ required: true, type: schema.Types.ObjectId, ref: 'Restaurant' })
+    restaurant: schema.Types.ObjectId
 }
 
 export const EmployeeSchema = SchemaFactory.createForClass(Employee);
