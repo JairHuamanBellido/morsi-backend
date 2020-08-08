@@ -16,4 +16,8 @@ export class CreateManager {
     @IsNotEmpty()
     @IsString()
     readonly password: string;
+
+    @IsNotEmpty()
+    @IsString()
+    readonly dni: string;
 }

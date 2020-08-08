@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import mongoProvider from '../../../database/db.mock';
 import { ManagerService } from '../services/manager.service';
+import { ManagerExceptionService } from '../exception/manager-exception.service';
 
 describe('ManagerService', () => {
     let service: ManagerService;
@@ -9,10 +10,11 @@ describe('ManagerService', () => {
         lastName: 'Huaman',
         name: 'Jair',
         password: '123456',
+        dni: '123456'
     };
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            providers: [ManagerService],
+            providers: [ManagerService, ManagerExceptionService],
             imports: [mongoProvider.initialize, mongoProvider.schemas],
         }).compile();
 

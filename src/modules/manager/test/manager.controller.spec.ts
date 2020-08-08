@@ -4,13 +4,14 @@ import { ManagerService } from '../services/manager.service';
 import mongoProvider from '../../../database/db.mock';
 import { manager } from '../../../__mock__/manager.mock';
 import { Manager } from '../models/manager.schema';
+import { ManagerExceptionService } from '../exception/manager-exception.service';
 describe('Manager Controller', () => {
     let controller: ManagerController;
     let service: ManagerService;
     beforeEach(async () => {
         const moduleRef: TestingModule = await Test.createTestingModule({
             controllers: [ManagerController],
-            providers: [ManagerService],
+            providers: [ManagerService, ManagerExceptionService],
             imports: [mongoProvider.initialize, mongoProvider.schemas],
         }).compile();
 

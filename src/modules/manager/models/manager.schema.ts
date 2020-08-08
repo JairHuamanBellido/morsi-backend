@@ -16,8 +16,13 @@ export class Manager extends Document {
     @Prop({ required: true, type: String })
     password: string;
 
-    @Prop({ type: Restaurant, required: false, default: [] })
+    @Prop({ required: false, type: Restaurant, default: [] })
     restaurants?: Array<Restaurant>;
+
+    @Prop({ required: true, type: String })
+    dni: string
+
+
 }
 
 export const ManagerSchema = SchemaFactory.createForClass(Manager);

@@ -6,6 +6,7 @@ import { ManagerAuthenticate } from '../dto/Authenticate.dto';
 import { CreateManager } from '../../../modules/manager/dto/createManager.dto';
 import { ManagerService } from '../../../modules/manager/services/manager.service';
 import { JwtModule } from '@nestjs/jwt';
+import { ManagerModule } from '../../../modules/manager/manager.module';
 
 describe('Auth Controller', () => {
     let controller: AuthController;
@@ -15,24 +16,26 @@ describe('Auth Controller', () => {
         name: 'Jair Orlando',
         lastName: 'Huaman Bellido',
         password: '123456',
+        dni: '123456'
     };
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             controllers: [AuthController],
-            providers: [AuthService, ManagerService],
+            providers: [AuthService],
             imports: [
                 mongoProvider.initialize,
                 mongoProvider.schemas,
                 JwtModule.register({
                     secret: 'localkey',
                 }),
+                ManagerModule
             ],
         }).compile();
 
         controller = module.get<AuthController>(AuthController);
         managerService = module.get<ManagerService>(ManagerService);
 
-        await (await managerService.create(mockManager)).save();
+        await (await managerService.create(mockManager));
     });
 
     it('should be defined', () => {

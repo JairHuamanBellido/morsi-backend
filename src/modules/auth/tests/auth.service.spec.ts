@@ -4,6 +4,7 @@ import { ManagerService } from '../../../modules/manager/services/manager.servic
 import mongoProvider from '../../../database/db.mock';
 import { CreateManager } from '../../../modules/manager/dto/createManager.dto';
 import { JwtModule } from '@nestjs/jwt';
+import { ManagerModule } from '../../../modules/manager/manager.module';
 describe('AuthService', () => {
     let authService: AuthService;
     let managerService: ManagerService;
@@ -12,6 +13,7 @@ describe('AuthService', () => {
         name: 'Jair Orlando',
         lastName: 'Huaman Bellido',
         password: '123456',
+        dni: '12345678'
     };
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -21,25 +23,18 @@ describe('AuthService', () => {
                 JwtModule.register({
                     secret: 'localkey',
                 }),
+                ManagerModule
             ],
-            providers: [AuthService, ManagerService],
+            providers: [AuthService],
         }).compile();
 
         authService = module.get<AuthService>(AuthService);
         managerService = module.get<ManagerService>(ManagerService);
-        await (await managerService.create(mockManager)).save();
+        await (await managerService.create(mockManager));
     });
 
     it('should be defined', () => {
         expect(authService).toBeDefined();
     });
 
-    it('should Authenticate', async () => {
-        const auth = await authService.authenticate({
-            email: mockManager.email,
-            password: mockManager.password,
-        });
-
-        expect(await auth).toHaveProperty('access_token');
-    });
 });

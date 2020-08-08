@@ -8,7 +8,7 @@ export class RestaurantExceptionService {
     constructor(
         @InjectModel(Restaurant.name)
         private readonly restaurantModel: Model<Restaurant>,
-    ) {}
+    ) { }
 
     async isExist(name: string): Promise<any> {
         const restaurant = await this.restaurantModel.findOne({ name: name });

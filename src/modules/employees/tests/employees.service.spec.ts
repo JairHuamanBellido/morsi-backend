@@ -21,6 +21,7 @@ describe('EmployeesService', () => {
         lastName: 'Huaman',
         name: 'Jair',
         password: '123456',
+        dni: '123456'
     };
     let mockRestaurant: any = {
         name: 'Restaurante de Duke',

@@ -16,6 +16,7 @@ describe('RestaurantsService', () => {
         lastName: 'Huaman',
         name: 'Jair',
         password: '123456',
+        dni: '123456'
     };
     let token = '';
     const mockRestaurant = {
