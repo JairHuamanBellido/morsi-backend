@@ -15,6 +15,7 @@ describe('EmployeesService', () => {
     let restaurantService: RestaurantsService;
     let authService: AuthService;
     let token = '';
+    let token2 = '';
     let mockManager: any = {
         email: 'jair@gmail.com',
         lastName: 'Huaman',
@@ -22,6 +23,15 @@ describe('EmployeesService', () => {
         password: '123456',
         dni: '123456'
     };
+
+    let mockManager2: any = {
+        email: 'test@gmail.com',
+        lastName: 'Huaman',
+        name: 'Jair',
+        password: '123456',
+        dni: 'test'
+    };
+
     let mockRestaurant: any = {
         name: 'Restaurante de Duke',
         address: 'Jr',
@@ -54,8 +64,10 @@ describe('EmployeesService', () => {
         restaurantService = module.get<RestaurantsService>(RestaurantsService);
         authService = module.get<AuthService>(AuthService);
 
-        mockManager = await await managerService.create(mockManager);
+        mockManager = await managerService.create(mockManager);
+        mockManager2 = await managerService.create(mockManager2);
         token = await (await authService.authenticate({ email: mockManager.email, password: mockManager.password })).access_token;
+        token2 = await (await authService.authenticate({ email: mockManager2.email, password: mockManager2.password })).access_token;
         mockRestaurant = await await restaurantService.create(token, mockRestaurant);
         mockEmployee.idRestaurant = mockRestaurant._id;
     });
@@ -72,7 +84,17 @@ describe('EmployeesService', () => {
 
     it('should toggle active employee account', async () => {
         const update: any = { active: false }
-        const _employee = await employeeService.update(token, update, mockEmployee.dni);
-        expect(_employee.message).toBeTruthy()
+
+        expect((await employeeService.update(token, update, "no existe")).message).toEqual("Empleado no encontrado")
+        expect((await employeeService.update(token2, update, mockEmployee.dni)).message).toEqual("Acceso Restringido")
+        expect((await employeeService.update(token, update, mockEmployee.dni))).toBeTruthy()
+    })
+
+    it('should delete employee', async () => {
+
+        expect((await employeeService.delete(token, "no existe")).message).toEqual("Empleado no encontrado")
+        expect((await employeeService.delete(token2, mockEmployee.dni)).message).toEqual("Acceso Restringido")
+        expect((await employeeService.delete(token, mockEmployee.dni)).message).toEqual("El empleado ha sido eliminado cón exito")
+
     })
 });

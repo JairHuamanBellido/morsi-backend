@@ -53,10 +53,10 @@ export class EmployeesService {
             const employee = await this.employeeModel.findOne({ dni: dni })
 
             if (!(await this.employeeExeception.isExist(dni))) {
-                return new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
+                return new HttpException('Empleado no encontrado', HttpStatus.NOT_FOUND)
             }
             if (!(await this.employeeExeception.isRestaurantOfManager(token, await employee.restaurant))) {
-                return new HttpException('Acceso prohibido', HttpStatus.FORBIDDEN)
+                return new HttpException('Acceso Restringido', HttpStatus.FORBIDDEN)
             }
 
             await employee.updateOne(_employee)
@@ -66,7 +66,26 @@ export class EmployeesService {
         } catch (error) {
             return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
+    }
 
+    async delete(token: string, dni: string): Promise<any> {
+        try {
+            const employee = await this.employeeModel.findOne({ dni: dni })
 
+            if (!(await this.employeeExeception.isExist(dni))) {
+                return new HttpException('Empleado no encontrado', HttpStatus.NOT_FOUND)
+            }
+
+            if (!(await this.employeeExeception.isRestaurantOfManager(token, await employee.restaurant))) {
+                return new HttpException('Acceso Restringido', HttpStatus.FORBIDDEN)
+            }
+
+            await this.employeeModel.deleteOne({ dni: dni })
+
+            return { "message": "El empleado ha sido eliminado cón exito" }
+
+        } catch (error) {
+            return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
     }
 }

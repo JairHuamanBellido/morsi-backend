@@ -24,9 +24,8 @@ export class EmployeeExceptionService {
 
     async isRestaurantOfManager(token: string, idRestaurant: string | Schema.Types.ObjectId): Promise<any> {
         const id = (this.authService.decodeToken(token)).id;
-        // console.log(await this.restaurantModel.find())
+
         const restaurant = await this.restaurantModel.findOne({ _id: idRestaurant, manager: id })
-        // console.log(await restaurant)
         return await restaurant ? true : false
 
     }
