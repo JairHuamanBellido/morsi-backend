@@ -16,13 +16,16 @@ export class EmployeesService {
         private readonly employeeModel: Model<Employee>,
 
         private readonly employeeExeception: EmployeeExceptionService,
-    ) {}
+    ) { }
 
-    async create(newEmployee: CreateEmployee): Promise<Employee | any> {
+    async create(token: string, newEmployee: CreateEmployee): Promise<Employee | any> {
         const { idRestaurant, ..._employee } = newEmployee;
         try {
             const restaurant = await this.restaurantModel.findOne({ _id: idRestaurant });
 
+            if (!(await this.employeeExeception.isValidTokenOfManager(token, restaurant.id))) {
+                return new HttpException('Acceso Restringido', HttpStatus.FORBIDDEN)
+            }
             if (!restaurant) {
                 return new HttpException('No existe el restaurante', HttpStatus.NOT_FOUND);
             }

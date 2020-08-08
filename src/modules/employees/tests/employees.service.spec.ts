@@ -65,7 +65,7 @@ describe('EmployeesService', () => {
     });
 
     it('should create employee', async () => {
-        const _employee = await await employeeService.create(mockEmployee);
+        const _employee = await await employeeService.create(token, mockEmployee);
 
         expect(await _employee.name).toEqual(mockEmployee.name);
     });
