@@ -8,6 +8,8 @@ import { ManagerModule } from './modules/manager/manager.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RestaurantsModule } from './modules/restaurants/restaurants.module';
 import { EmployeesModule } from './modules/employees/employees.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { GlobalInterceptor } from './core/global.interceptor';
 
 @Module({
     imports: [
@@ -23,6 +25,9 @@ import { EmployeesModule } from './modules/employees/employees.module';
         EmployeesModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, {
+        provide: APP_INTERCEPTOR,
+        useClass: GlobalInterceptor
+    }],
 })
-export class AppModule {}
+export class AppModule { }
