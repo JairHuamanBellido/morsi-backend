@@ -12,6 +12,6 @@ export class ManagerService {
     ) {}
 
     async create(_manager: CreateManager): Promise<Manager> {
-        return await this.managerModel.create(_manager);
+        return await (await this.managerModel.create(_manager)).save();
     }
 }

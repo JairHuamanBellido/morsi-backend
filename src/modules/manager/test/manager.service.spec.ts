@@ -13,7 +13,7 @@ describe('ManagerService', () => {
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [ManagerService],
-            imports: [mongoProvider.initialize, mongoProvider.managerSchema],
+            imports: [mongoProvider.initialize, mongoProvider.schemas],
         }).compile();
 
         service = module.get<ManagerService>(ManagerService);

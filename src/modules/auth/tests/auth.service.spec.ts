@@ -17,7 +17,7 @@ describe('AuthService', () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [
                 mongoProvider.initialize,
-                mongoProvider.managerSchema,
+                mongoProvider.schemas,
                 JwtModule.register({
                     secret: 'localkey',
                 }),

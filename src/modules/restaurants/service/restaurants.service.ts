@@ -34,7 +34,7 @@ export class RestaurantsService {
             await restaurant.save();
             await manager.updateOne(manager);
 
-            return { message: 'El mensaje ha sido creado con éxito' };
+            return await restaurant;
         } catch (error) {
             return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

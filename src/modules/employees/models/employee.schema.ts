@@ -1,11 +1,19 @@
 import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Employee } from '../../../modules/employees/models/employee.schema';
 
 @Schema()
-export class Restaurant extends Document {
+export class Employee extends Document {
+    @Prop({ required: true, type: String })
+    dni: string;
+
     @Prop({ required: true, type: String })
     name: string;
+
+    @Prop({ required: true, type: String })
+    lastname: string;
+
+    @Prop({ required: true, type: Number })
+    age: number;
 
     @Prop({ required: true, type: String })
     address: string;
@@ -17,13 +25,13 @@ export class Restaurant extends Document {
     district: string;
 
     @Prop({ required: true, type: String })
-    country: string;
+    nationality: string;
 
     @Prop({ required: true, type: String })
-    telephoneContact: string;
+    phone: string;
 
-    @Prop({ required: false, type: Employee, default: [] })
-    employees?: Array<Employee>;
+    @Prop({ required: true, type: String })
+    email: string;
 }
 
-export const RestaurantSchema = SchemaFactory.createForClass(Restaurant);
+export const EmployeeSchema = SchemaFactory.createForClass(Employee);

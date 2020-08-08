@@ -22,7 +22,7 @@ describe('Auth Controller', () => {
             providers: [AuthService, ManagerService],
             imports: [
                 mongoProvider.initialize,
-                mongoProvider.managerSchema,
+                mongoProvider.schemas,
                 JwtModule.register({
                     secret: 'localkey',
                 }),

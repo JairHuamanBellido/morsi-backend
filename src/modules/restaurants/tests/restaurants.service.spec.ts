@@ -29,7 +29,7 @@ describe('RestaurantsService', () => {
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [AuthModule, mongoProvider.initialize, mongoProvider.managerSchema, ManagerModule],
+            imports: [AuthModule, mongoProvider.initialize, mongoProvider.schemas, ManagerModule],
             providers: [RestaurantsService, RestaurantExceptionService],
         }).compile();
 
@@ -48,6 +48,6 @@ describe('RestaurantsService', () => {
     it('should create restaurant', async () => {
         const _restaurant = await restaurantService.create(token, mockRestaurant);
         await _restaurant;
-        expect((await _restaurant).message).toBeTruthy();
+        expect((await _restaurant).name).toEqual(mockRestaurant.name);
     });
 });

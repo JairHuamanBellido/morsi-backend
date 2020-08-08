@@ -10,7 +10,7 @@ describe('Restaurants Controller', () => {
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
-            imports: [mongoProvider.initialize, mongoProvider.managerSchema, AuthModule],
+            imports: [mongoProvider.initialize, mongoProvider.schemas, AuthModule],
             controllers: [RestaurantsController],
             providers: [RestaurantsService, RestaurantExceptionService],
         }).compile();

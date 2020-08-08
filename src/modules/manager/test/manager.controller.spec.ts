@@ -11,7 +11,7 @@ describe('Manager Controller', () => {
         const moduleRef: TestingModule = await Test.createTestingModule({
             controllers: [ManagerController],
             providers: [ManagerService],
-            imports: [mongoProvider.initialize, mongoProvider.managerSchema],
+            imports: [mongoProvider.initialize, mongoProvider.schemas],
         }).compile();
 
         service = moduleRef.get<ManagerService>(ManagerService);
