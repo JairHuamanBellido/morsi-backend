@@ -44,5 +44,9 @@ export class CreateEmployee {
 
     @IsNotEmpty()
     @IsString()
+    readonly password: string;
+
+    @IsNotEmpty()
+    @IsString()
     readonly email: string;
 }

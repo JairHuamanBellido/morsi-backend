@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../../core/jwt/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { jwtKey } from '../../config/key.jwt';
+import { EmployeeSchema, Employee } from '../employees/models/employee.schema';
 @Module({
     imports: [
         PassportModule,
@@ -15,10 +16,11 @@ import { jwtKey } from '../../config/key.jwt';
         }),
         MongooseModule.forFeature([
             { schema: ManagerSchema, name: Manager.name },
+            { schema: EmployeeSchema, name: Employee.name },
         ]),
     ],
     controllers: [AuthController],
     providers: [AuthService, JwtStrategy],
     exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -39,7 +39,7 @@ describe('RestaurantsService', () => {
         authService = module.get<AuthService>(AuthService);
 
         mockManager = await (await managerService.create(mockManager)).save();
-        token = await (await authService.authenticate({ email: mockManager.email, password: mockManager.password })).access_token;
+        token = await (await authService.managerAuthenticate({ email: mockManager.email, password: mockManager.password })).access_token;
     });
 
     it('should be defined', () => {

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from '../controller/auth.controller';
 import mongoProvider from '../../../database/db.mock';
 import { AuthService } from '../services/auth.service';
-import { ManagerAuthenticate } from '../dto/Authenticate.dto';
+import { ManagerAuthenticate } from '../dto/authManager.dto';
 import { CreateManager } from '../../../modules/manager/dto/createManager.dto';
 import { ManagerService } from '../../../modules/manager/services/manager.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -42,7 +42,7 @@ describe('Auth Controller', () => {
         expect(controller).toBeDefined();
     });
 
-    it('POST /auth authenticate', async () => {
+    it('POST /auth/manager authenticate', async () => {
         const manager: ManagerAuthenticate | any = {
             email: 'huamanbellidoj@gmail.com',
             password: '123456',

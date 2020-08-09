@@ -30,7 +30,6 @@ export class RestaurantsService {
             const restaurant = await this.restaurantModel.create({ ...newRestaurant, manager });
 
             await restaurant.save();
-            await manager.updateOne(manager);
 
             return await restaurant;
         } catch (error) {

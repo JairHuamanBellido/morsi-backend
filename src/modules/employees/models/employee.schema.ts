@@ -32,6 +32,9 @@ export class Employee extends Document {
 
     @Prop({ required: true, type: String })
     email: string;
+    
+    @Prop({required: true, type: String})
+    password: string;
 
     @Prop({ required: false, type: Boolean, default: true })
     active?: boolean;

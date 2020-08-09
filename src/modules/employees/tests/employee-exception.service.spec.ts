@@ -60,6 +60,7 @@ describe('EmployeesExceptionService', () => {
         name: 'n',
         nationality: 'p',
         phone: 'p',
+        password: 'q'
     };
     const mockEmployee2 = {
         idRestaurant: '',
@@ -89,8 +90,8 @@ describe('EmployeesExceptionService', () => {
 
         mockManager = await managerService.create(mockManager);
         mockManager2 = await managerService.create(mockManager2);
-        token = await (await authService.authenticate({ email: mockManager.email, password: mockManager.password })).access_token;
-        token2 = await (await authService.authenticate({ email: mockManager2.email, password: mockManager2.password })).access_token;
+        token = await (await authService.managerAuthenticate({ email: mockManager.email, password: mockManager.password })).access_token;
+        token2 = await (await authService.managerAuthenticate({ email: mockManager2.email, password: mockManager2.password })).access_token;
         mockRestaurant.manager = mockManager._id
         mockRestaurant2.manager = mockManager2._id
 

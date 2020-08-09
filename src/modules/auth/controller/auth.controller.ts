@@ -1,13 +1,15 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { ManagerAuthenticate } from '../dto/Authenticate.dto';
+import { ManagerAuthenticate } from '../dto/authManager.dto';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) { }
 
-    @Post('/')
+    @Post('/manager')
     async authenticate(@Body() managerAuth: ManagerAuthenticate): Promise<any> {
-        return this.authService.authenticate(managerAuth);
+        return this.authService.managerAuthenticate(managerAuth);
     }
+
+
 }

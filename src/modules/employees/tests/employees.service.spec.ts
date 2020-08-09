@@ -52,6 +52,7 @@ describe('EmployeesService', () => {
         name: 'n',
         nationality: 'p',
         phone: 'p',
+        password: 'w'
     };
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -66,8 +67,8 @@ describe('EmployeesService', () => {
 
         mockManager = await managerService.create(mockManager);
         mockManager2 = await managerService.create(mockManager2);
-        token = await (await authService.authenticate({ email: mockManager.email, password: mockManager.password })).access_token;
-        token2 = await (await authService.authenticate({ email: mockManager2.email, password: mockManager2.password })).access_token;
+        token = await (await authService.managerAuthenticate({ email: mockManager.email, password: mockManager.password })).access_token;
+        token2 = await (await authService.managerAuthenticate({ email: mockManager2.email, password: mockManager2.password })).access_token;
         mockRestaurant = await await restaurantService.create(token, mockRestaurant);
         mockEmployee.idRestaurant = mockRestaurant._id;
     });
