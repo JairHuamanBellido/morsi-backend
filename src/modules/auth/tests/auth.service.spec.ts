@@ -9,6 +9,7 @@ import { EmployeesModule } from '../../../modules/employees/employees.module';
 import { RestaurantsService } from '../../../modules/restaurants/service/restaurants.service';
 import { EmployeesService } from '../../../modules/employees/services/employees.service';
 import { RestaurantsModule } from '../../../modules/restaurants/restaurants.module';
+
 describe('AuthService', () => {
     let authService: AuthService;
     let managerService: ManagerService;
@@ -29,10 +30,8 @@ describe('AuthService', () => {
         country: "Perú",
         telephoneContact: "933059431"
     }
-
     let token = ""
-
-    let mockEmployee: any = {
+    const mockEmployee: any = {
         idRestaurant: null,
         address: "address",
         age: 12,
@@ -86,6 +85,12 @@ describe('AuthService', () => {
         expect((await authService.employeerAuthentication({ email: mockEmployee.email, password: "incorrecto" })).message).toEqual("Credenciales inválidas")
         expect((await authService.employeerAuthentication({ email: mockEmployee.email, password: mockEmployee.password }))).toHaveProperty("access_token")
 
+    })
+
+    it('should unauthorized employee login', async () => {
+        await employeeService.update(token, { active: false }, mockEmployee.dni);
+
+        expect((await authService.employeerAuthentication({ email: mockEmployee.email, password: mockEmployee.password })).message).toEqual("Su cuenta esta deshabilitada, contacto con el gerente para volver a habilitarla")
     })
 
 

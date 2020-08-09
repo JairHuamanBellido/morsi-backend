@@ -45,11 +45,15 @@ export class AuthService {
             })
 
             if (!employee) {
-                return new HttpException("Credenciales inválidas", HttpStatus.UNAUTHORIZED)                
+                return new HttpException("Credenciales inválidas", HttpStatus.UNAUTHORIZED)
+            }
+
+            if (!employee.active) {
+                return new HttpException("Su cuenta esta deshabilitada, contacto con el gerente para volver a habilitarla", HttpStatus.UNAUTHORIZED);
             }
 
             return {
-                access_token: this.jwtService.sign({id: employee.id})
+                access_token: this.jwtService.sign({ id: employee.id })
             }
         } catch (error) {
             return new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR)
