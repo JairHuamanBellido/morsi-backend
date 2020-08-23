@@ -26,6 +26,8 @@ export class Restaurant extends Document {
     @Prop({ required: true, type: schema.Types.ObjectId, ref: 'Manager' })
     manager: schema.Types.ObjectId
 
+    @Prop({ required: false, type: [schema.Types.ObjectId], ref: 'MainDish', default: [] })
+    mainDishes?: [schema.Types.ObjectId]
 
 }
 

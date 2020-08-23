@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ManagerSchema, Manager } from '../modules/manager/models/manager.schema';
 import { RestaurantSchema, Restaurant } from '../modules/restaurants/model/restaurant.schema';
 import { EmployeeSchema, Employee } from '../modules/employees/models/employee.schema';
+import { MainDishSchema, MainDish } from '../modules/products/models/main-dish.schema';
 
 const mongod = new MongoMemoryServer();
 export default {
@@ -15,5 +16,6 @@ export default {
         { schema: ManagerSchema, name: Manager.name },
         { schema: RestaurantSchema, name: Restaurant.name },
         { schema: EmployeeSchema, name: Employee.name },
+        { schema: MainDishSchema, name: MainDish.name }
     ]),
 };

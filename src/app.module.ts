@@ -10,6 +10,7 @@ import { RestaurantsModule } from './modules/restaurants/restaurants.module';
 import { EmployeesModule } from './modules/employees/employees.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { GlobalInterceptor } from './core/global.interceptor';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { GlobalInterceptor } from './core/global.interceptor';
         AuthModule,
         RestaurantsModule,
         EmployeesModule,
+        ProductsModule,
     ],
     controllers: [AppController],
     providers: [AppService, {
